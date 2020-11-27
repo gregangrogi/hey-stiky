@@ -20,12 +20,14 @@ class rect {
   }
 }
 class block {
-  constructor(x, y, xx, yy, c) {
+  constructor(x, y, xx, yy,type) {
     this.x = x;
     this.y = y;
     this.xx = xx;
     this.yy = yy;
-    this.c1 = c;
+    this.colors = ["#704c4c", "#92b045", "#696969", "#a1cfc6"]
+    this.c1 = this.colors[type-1];
+    this.t = type;
   }
   draw(){
     rct(this.x, this.y, this.xx, this.yy, this.c1);
@@ -66,9 +68,13 @@ class slime {
     this.move(0, this.g);
   }
   draw(){
-
     rct(this.x, this.y, this.xx, this.yy, this.c1);
     rct(this.x+this.sz, this.y+this.sz, this.xx-(this.sz*2), this.yy-(this.sz*2), this.c2);
+  }
+  die(){
+    this.c1 = "#ad4949"
+    this.c2 = "#994949"
+    this.s = 0;
   }
   rnd(cols){
     this.t = false
@@ -76,17 +82,51 @@ class slime {
     this.mt = false;
     for (let i = 0; i < cols.length; i++){
       if (cols[i].touch(new rect(this.x+this.sz, this.y+this.yy-this.sz, this.xx-(this.sz*2), this.sz))){
-        this.t = true;
+        if (cols[i].t == 1) {
+          this.t = true;
+        }
+        else if(cols[i].t == 2) {
+          if (this.g == 20){
+            this.g = -40
+          }
+        }
+        else if(cols[i].t == 3) {
+            this.die();
+            this.t = true;
+        }
       }
       if (cols[i].touch(new rect(this.x+this.sz, this.y, this.xx-(this.sz*2), this.sz))){
-        this.t = false;
-        this.g = 1;
+        if (cols[i].t == 1) {
+          this.t = false;
+          this.g = 1;
+        }
+        else if(cols[i].t == 2) {
+          if (this.g == 20){
+            this.g = -40
+          }
+        }
+        else if(cols[i].t == 3) {
+            this.die();
+            this.t = true;
+        }
       }
       if (cols[i].touch(new rect(this.x+this.xx+this.sz, this.y+this.sz, this.sz, this.yy-(this.sz*2)))){
-        this.pt = true;
+        if (cols[i].t == 1) {
+          this.pt = true;
+        }
+        else if(cols[i].t == 4) {
+          this.mx = -8;
+          this.g = -20;
+        }
       }
       if (cols[i].touch(new rect(this.x, this.y+this.sz, this.sz, this.yy-(this.sz*2)))){
-        this.mt = true;
+        if (cols[i].t == 1) {
+          this.mt = true;
+        }
+        else if(cols[i].t == 4) {
+          this.mx = 8;
+          this.g = -20;
+        }
       }
     }
     this.gravity();
@@ -122,9 +162,11 @@ class slime {
     }
   }
 }
-var sl = new slime(100, 2980, 100, 100);
-var blocks = [new block(0, 3100, 300, 50, "#704c4c"), new block(420, 3000, 200, 50, "#704c4c"),
-new block(100, 2900, 200, 50, "#704c4c"), new block(420, 2800, 300, 50, "#704c4c"), new block(840, 2700, 200, 50, "#704c4c")];
+var sl = new slime(100, 3000, 100, 100);
+var blocks = [new block(0, 3100, 300, 50, 1), new block(420, 3000, 200, 50, 1),
+new block(100, 2900, 200, 50, 1), new block(420, 2800, 300, 50, 1), new block(840, 2700, 100, 50, 1),
+ new block(940, 3100, 200, 50, 2), new block(340, 2400, 600, 50, 1), new block(0, 2500, 940, 50, 3),
+ new block(840, 2800, 50, 200, 3), new block(240, 2200, 50, 50, 4), new block(500, 2150, 300, 50, 1)];
 function mianloop(){
   rct(0, 0, scx, scy, "#6c8fa3");
   sl.rnd(blocks);
