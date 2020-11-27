@@ -11,6 +11,13 @@ function rct(x, y, xx, yy, c){
   g.fillStyle = c;
   g.fillRect(x, y, xx, yy);
 }
+function fon(){
+  rct(0, 0, scx, scy/5, "#1b191c");
+  rct(0, scy/5, scx, scy/5, "#3e264d");
+  rct(0, scy/5*2, scx, scy/5, "#6b294c");
+  rct(0, scy/5*3, scx, scy/5, "#836eb8");
+  rct(0, scy/5*4, scx, scy/5, "#99a7d1");
+}
 class rect {
   constructor(x, y, xx, yy) {
     this.x = x;
@@ -134,15 +141,15 @@ class slime {
     this.draw();
   }
   ks(key){
-    if (key == "d"&&this.pt==false){
+    if ((key == "d"||key == "в")&&this.pt==false){
       this.mx = this.s;
       console.log("d");
     }
-    if (key == "a"&&this.mt==false){
+    if ((key == "a"||key == "ф")&&this.mt==false){
       this.mx = -this.s;
       console.log("a");
     }
-    if (key == "w"){
+    if ((key == "w"||key == "ц")){
       if(this.t){
         this.t = false;
         this.g = -15;
@@ -152,11 +159,11 @@ class slime {
     }
   }
   unks(key){
-    if (key == "d"){
+    if ((key == "d"||key == "в")){
       this.mx = 0;
       //console.log("d");
     }
-    if (key == "a"){
+    if ((key == "a"||key == "ф")){
       this.mx = 0;
       //console.log("a");
     }
@@ -168,7 +175,7 @@ new block(100, 2900, 200, 50, 1), new block(420, 2800, 300, 50, 1), new block(84
  new block(940, 3100, 200, 50, 2), new block(340, 2400, 600, 50, 1), new block(0, 2500, 940, 50, 3),
  new block(840, 2800, 50, 200, 3), new block(240, 2200, 50, 50, 4), new block(500, 2150, 300, 50, 1)];
 function mianloop(){
-  rct(0, 0, scx, scy, "#6c8fa3");
+  fon();
   sl.rnd(blocks);
   for (let i = 0; i < blocks.length; i++){
     blocks[i].draw();
