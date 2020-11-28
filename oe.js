@@ -182,7 +182,7 @@ new block(100, 2900, 200, 50, 1), new block(420, 2800, 300, 50, 1), new block(84
  new block(840, 2800, 50, 200, 3), new block(240, 2200, 50, 50, 4), new block(500, 2150, 580, 50, 1),
  new block(600, 2100, 25, 50, 3), new block(800, 2100, 25, 50, 3), new block(1000, 2100, 25, 50, 3),
  new block(0, 1900, 800, 50, 1), new block(1000, 1950, 50, 50, 4), new block(200, 1650, 550, 50, 3),
- new block(200, 1890, 50, 50, 4), new block(450, 1890, 50, 50, 4), new block(700, 1890, 50, 50, 4),
+ new block(340, 1890, 50, 50, 4), new block(620, 1890, 50, 50, 4),
  new block(000, 1750, 50, 50, 4), new block(000, 1890, 200, 50, 2),new block(200, 1625, 550, 50, 1),
   new block(700, 1400, 50, 225, 3), new block(200, 1200, 550, 50, 1)];
 function mianloop(){
